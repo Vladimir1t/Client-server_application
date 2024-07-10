@@ -23,15 +23,18 @@ if flag_1 == '-s':
         print (modified_message)
         print ('client address: ', client_address)
         server_socket.sendto (modified_message, client_address)
+        server_socket.sendto (bytes(str(client_address), "UTF-8"), client_address)
 
 elif flag_1 == '-c':
     client_socket = socket (AF_INET, SOCK_DGRAM)
     print ("client is ready")
     message = input ('input sentence: ')
-    client_socket.connect ((IP_server, server_port))
-    client_socket.sendall (bytes(message, "UTF-8"))
+    # client_socket.connect ((IP_server, server_port))
+    client_socket.sendto (bytes(message, "UTF-8"), (IP_server, server_port))
     modified_sentence, server_address = client_socket.recvfrom (2048)
+    address, server_address = client_socket.recvfrom (2048)
     print (modified_sentence)
+    print (address)
     client_socket.close ()
 
 else:
