@@ -1,8 +1,5 @@
 import sys
 from socket import *
-from threading import Thread
-import threading
-import os
 
 def udp_protocol ():
     if flag_1 == '-s':
@@ -10,6 +7,7 @@ def udp_protocol ():
         server_socket.bind (('', server_port))
         print ("server is ready")
         while 1:
+
             message, client_address = server_socket.recvfrom (2048)
             modified_message = message.upper ()
             print (modified_message)
@@ -24,7 +22,6 @@ def udp_protocol ():
         client_socket = socket (AF_INET, SOCK_DGRAM)
         print ("client is ready")
         message = input ('input sentence: {write stop to stop the server process}\n')
-        # client_socket.connect ((IP_server, server_port))
         client_socket.sendto (bytes(message, "UTF-8"), (IP_server, server_port))
         modified_sentence, server_address = client_socket.recvfrom (2048)
         address, server_address = client_socket.recvfrom (2048)
@@ -41,6 +38,7 @@ def tcp_protocol ():
         server_socket.bind (('', server_port))
         server_socket.listen (1)
         print ("server is ready")
+
         while 1:
             connection_socket, client_address = server_socket.accept ()
             message = connection_socket.recv (2048)
@@ -48,7 +46,7 @@ def tcp_protocol ():
             print (modified_message)
             print ('client address: ', client_address)
             connection_socket.send (modified_message)
-            connection_socket.send (bytes(str(client_address) + ' you were connected to the server', "UTF-8"), client_address)
+            connection_socket.send (bytes(str(client_address) + ' you were connected to the server', "UTF-8"))
             connection_socket.close ()
             if message == b'stop':
                 server_socket.close ()
@@ -58,8 +56,7 @@ def tcp_protocol ():
         client_socket = socket (AF_INET, SOCK_STREAM)
         client_socket.connect ((IP_server, server_port))  # tcp-connection
         print ("client is ready")
-        message = input ('input sentence: {write stop to stop the server process}\n')
-        # client_socket.connect ((IP_server, server_port))
+        message = input ('input sentence: {write \'stop\' to stop the server process}\n')
         client_socket.send (bytes(message, "UTF-8"))
         modified_sentence = client_socket.recv (2048)
         address = client_socket.recv (2048)
