@@ -1,22 +1,8 @@
 INFO:__main__:Started
-INFO:__main__:Client is ready (socket was created) 
+INFO:__main__:Client is ready (socket was created)
+INFO:__main__:   Message was sent
+INFO:__main__:   Message was got. Client address: ('127.0.0.1', 50742)
 
-INFO:__main__:Started
-INFO:__main__:Client is ready (socket was created) 
-
-INFO:__main__:Started
-INFO:__main__:Started
-INFO:__main__:Server is ready (socket was created) 
-
-INFO:__main__:Started
-INFO:__main__:Client is ready (socket was created) 
-
-INFO:__main__:   Message was got. Client address: ('127.0.0.1', 60100)
-
-INFO:__main__:   Message was sent 
-
-INFO:__main__:   Answer was got 
-
-INFO:__main__:Socket was closed 
-
+INFO:__main__:   Answer was got
+INFO:__main__:Socket was closed
 INFO:__main__:Finished
