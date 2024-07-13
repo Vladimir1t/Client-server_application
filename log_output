@@ -1,8 +1,32 @@
 INFO:__main__:Started
 INFO:__main__:Client is ready (socket was created)
+INFO:__main__:   TCP-connection was created
+INFO:__main__:   Connection socket was created  (TCP-connection)
+INFO:__main__:   Answer was got. Client address: ('127.0.0.1', 62123)
+INFO:__main__:   Connection socket was closed
 INFO:__main__:   Message was sent
-INFO:__main__:   Message was got. Client address: ('127.0.0.1', 50742)
-
 INFO:__main__:   Answer was got
 INFO:__main__:Socket was closed
 INFO:__main__:Finished
+
+INFO:__main__:Started
+INFO:__main__:Client is ready (socket was created)
+INFO:__main__:   Connection socket was created  (TCP-connection)
+INFO:__main__:   TCP-connection was created
+INFO:__main__:   Answer was got. Client address: ('127.0.0.1', 62398)
+INFO:__main__:   Connection socket was closed
+INFO:__main__:   Message was sent
+INFO:__main__:   Answer was got
+INFO:__main__:Socket was closed
+INFO:__main__:Finished
+
+INFO:__main__:Started
+INFO:__main__:Client is ready (socket was created)
+INFO:__main__:   Connection socket was created  (TCP-connection)
+INFO:__main__:   Answer was got. Client address: ('127.0.0.1', 62560)
+INFO:__main__:   Connection socket was closed
+INFO:__main__:   Answer was got
+INFO:__main__:Socket was closed
+INFO:__main__:Finished
+
+
