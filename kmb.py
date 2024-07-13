@@ -135,9 +135,6 @@ def tcp_protocol():
         client_socket.close()
         logger.info('Socket was closed')
 
-    else:
-        print("Error. Wrong flag")
-
 if __name__ == '__main__':
     main()
 
