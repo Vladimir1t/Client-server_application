@@ -4,10 +4,10 @@ import argparse
 
 logger = logging.getLogger(__name__)
 
-CLIENT_UDP = 0b1010
+CLIENT_UDP = 0b0101
 CLIENT_TCP = 0b0110
 SERVER_UDP = 0b1001
-SERVER_TCP = 0b0101
+SERVER_TCP = 0b1010
 
 def main():
     print("-- Client-server application --")
@@ -28,7 +28,7 @@ def main():
                          (args.tcp    << 1) |
                          (args.client << 2) |
                          (args.server << 3)]
-
+    print (callback)
     callback(args)
 
     logger.info('Finished \n')
