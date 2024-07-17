@@ -4,6 +4,11 @@ import argparse
 
 logger = logging.getLogger(__name__)
 
+CLIENT_UDP = 0b1010
+CLIENT_TCP = 0b0110
+SERVER_UDP = 0b1001
+SERVER_TCP = 0b0101
+
 def main():
     print("-- Client-server application --")
 
@@ -12,10 +17,19 @@ def main():
     logging.basicConfig(filename = args.file, level = logging.INFO)
     logger.info('Started')
 
-    if args.udp:
-        udp_protocol(args)
-    elif args.tcp:
-        tcp_protocol(args)
+    callbacks = {
+        CLIENT_UDP: client_udp,
+        CLIENT_TCP: client_tcp,
+        SERVER_UDP: server_udp,
+        SERVER_TCP: server_tcp
+    }
+
+    callback = callbacks[(args.udp    << 0) |
+                         (args.tcp    << 1) |
+                         (args.client << 2) |
+                         (args.server << 3)]
+
+    callback(args)
 
     logger.info('Finished \n')
 
@@ -37,26 +51,13 @@ def parse_arguments():
 
     return parser.parse_args()
 
-def udp_protocol(args):
+def server_udp(args):
     """
-    An application that uses the UDP transport protocol [-u].
-    there are two modes: client [-c] and server [-s]
-    program uses logging and socket libraries
-    ----------
-    Client makes tcp-socket,
-    then sends message to server socket and waits for an answer.
-    ----------
+    server [-s] uses the UDP transport protocol [-u]
     Server makes socket and listen to the request,
     waits for a message,
     after that sends message to client socket.
     """
-    if args.server:
-        server_udp(args)
-
-    elif args.client:
-        client_udp(args)
-
-def server_udp(args):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     server_socket.bind(('',  args.server_port))
     logger.info('Server is ready (socket was created)')
@@ -76,6 +77,11 @@ def server_udp(args):
             break
 
 def client_udp(args):
+    """
+    client [-c] uses the UDP transport protocol [-u]
+    Client makes tcp-socket,
+    then sends message to server socket and waits for an answer.
+    """
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     logger.info('Client is ready (socket was created)')
     message = input('input sentence: {write \'stop\' to stop the server process} \n')
@@ -91,27 +97,13 @@ def client_udp(args):
     client_socket.close()
     logger.info('Socket was closed')
 
-
-def tcp_protocol(args):
+def server_tcp(args):
     """
-    An application that uses the TCP transport protocol [-t].
-    there are two modes: client [-c] and server [-s]
-    program uses logging and socket libraries
-    ----------
-    Client makes tcp-socket and starts tcp-connection with server,
-    then sends message to server socket and waits for an answer.
-    ----------
+    server [-s] uses the TCP transport protocol [-t]
     Server makes socket and listen to the tcp-request,
     then creates connection socket and waits for a message
     after that sends message to client socket.
     """
-    if args.server:
-        server_tcp(args)
-
-    elif args.client:
-        client_tcp(args)
-
-def server_tcp(args):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind(('',  args.server_port))
     logger.info('Server is ready (socket was created)')
@@ -135,6 +127,11 @@ def server_tcp(args):
             break
 
 def client_tcp(args):
+    """
+    client [-c] uses the TCP transport protocol [-t]
+    Client makes tcp-socket and starts tcp-connection with server,
+    then sends message to server socket and waits for an answer.
+    """
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     logger.info('Client is ready (socket was created)')
     client_socket.connect((args.server_IP, args.server_port))
