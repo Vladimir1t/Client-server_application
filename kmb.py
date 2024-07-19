@@ -28,7 +28,6 @@ def main():
                          (args.tcp    << 1) |
                          (args.client << 2) |
                          (args.server << 3)]
-    print (callback)
     callback(args)
 
     logger.info('Finished \n')
